@@ -1,0 +1,22 @@
+.choose_data_source{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .tree_box{
+    width: 20%;
+    margin-top: 20px;
+  }
+  .data_source_table{
+    width: 77%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    .search_data_source{
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+    .pag{
+      margin-top: 30px;
+    }
+  }
+}

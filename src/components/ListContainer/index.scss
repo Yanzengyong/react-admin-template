@@ -1,0 +1,83 @@
+
+.listContainer{
+  width: 100%;
+  height: 100%;
+  .listContainer_utilbox{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .listContainer_utilbox_left{
+      width: 60%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      span{
+        font-size: 14px;
+        color: #333333;
+      }
+      .listContainer_util_input{
+        width: 260px;
+        margin: 0 16px 0 0px;
+        color: #fff;
+        .next-search-left{
+          height: 30px!important;
+        }
+        .next-after{
+          height: 30px!important;
+        }
+        .next-select{
+          height: 30px!important;
+        }
+        .next-search-btn{
+          height: 32px!important;
+        }
+        input{
+          height: 30px!important;
+        }
+        .listContainer_search_btn{
+          font-size: 13px;
+          color: #fff;
+        }
+      }
+    }
+    .listContainer_utilbox_right{
+      width: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .listContainer_utilbox_right_btn{
+        height: 32px;
+      }
+    }
+  }
+  .listContainer_utilbox_notice{
+    margin: 16px 0;
+    height: 36px;
+    padding: 0 16px!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .next-message-title{
+      font-size: 14px!important;
+      padding: 0 10px!important;
+    }
+  }
+  .listContainer_table_box{
+    width: 100%;
+    height: calc(100% - 100px);
+    position: relative;
+    .listContainer_table{
+      width: 100%;
+      height: calc(100% - 40px);
+      overflow: auto;
+    }
+    .listContainer_Pagination{
+      margin-top: 10px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+}

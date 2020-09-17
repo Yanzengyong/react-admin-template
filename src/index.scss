@@ -1,0 +1,52 @@
+@import '~@alifd/next/dist/next.css';
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+html,
+body,
+#root {
+	height: 100%;
+}
+.listCard_operation_box {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	.btn {
+		margin-left: 10px;
+	}
+}
+.action_cols_box {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.icon {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-right: 10px;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+.next-table th .next-table-cell-wrapper {
+	text-align: center;
+} // 所有table的title居中
+.next-table td .next-table-cell-wrapper {
+	// text-align: center;
+} // 所有table的内容居中
