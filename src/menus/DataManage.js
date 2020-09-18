@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: Yanzengyong
+ * @Date: 2020-09-15 18:07:31
+ * @LastEditors: Yanzengyong
+ * @LastEditTime: 2020-09-18 16:33:29
+ */
 export default [
 	{
 		title: '首页',
@@ -7,214 +15,48 @@ export default [
 		role: ['public', 'admin', 'developer'],
 	},
 	{
-		title: '业务管理',
-		path: '/dataManage/businessManage',
-		exact: true,
-		component: 'BusinessManage',
+		title: '数据源接入',
+		path: '/dataManage/dataSource',
+		isSub: true,
 		role: ['public', 'admin', 'developer'],
 		children: [
 			{
-				title: '新建业务',
-				path: '/dataManage/businessManage/create',
+				title: '数据源管理',
+				path: '/dataManage/dataSource/source',
 				exact: true,
-				component: 'BusinessCreateAndEdit',
+				component: 'DataManage',
 				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-				type: 'create',
-			},
-			{
-				title: '编辑业务',
-				path: '/dataManage/businessManage/edit',
-				exact: true,
-				component: 'BusinessCreateAndEdit',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-				type: 'edit',
-			},
-			{
-				title: '查看业务',
-				path: '/dataManage/businessManage/businessPreview',
-				exact: true,
-				component: 'BusinessPreview',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-				type: 'preview',
 				children: [
 					{
-						title: '新建信息系统',
-						path: '/dataManage/businessManage/businessPreview/InfoSys/create',
+						title: '新增数据源',
+						path: '/dataManage/dataSource/source/create',
 						exact: true,
-						component: 'InfoSysPreviewAndCreateAndEdit',
+						component: 'DataSourceCreateEditPreviewLayout',
 						role: ['public', 'admin', 'developer'],
 						isHide: 'Y',
 						type: 'create',
 					},
 					{
-						title: '查看信息系统',
-						path: '/dataManage/businessManage/businessPreview/InfoSys/preview',
+						title: '编辑数据源',
+						path: '/dataManage/dataSource/source/edit',
 						exact: true,
-						component: 'InfoSysPreviewAndCreateAndEdit',
+						component: 'DataSourceCreateEditPreviewLayout',
+						role: ['public', 'admin', 'developer'],
+						isHide: 'Y',
+						type: 'edit',
+					},
+					{
+						title: '查看数据源',
+						path: '/dataManage/dataSource/source/preview',
+						exact: true,
+						component: 'DataSourceCreateEditPreviewLayout',
 						role: ['public', 'admin', 'developer'],
 						isHide: 'Y',
 						type: 'preview',
-					},
+					}
+				]
+			}
+		]
+	}
 
-					{
-						title: '编辑信息系统',
-						path: '/dataManage/businessManage/businessPreview/InfoSys/edit',
-						exact: true,
-						component: 'InfoSysPreviewAndCreateAndEdit',
-						role: ['public', 'admin', 'developer'],
-						isHide: 'Y',
-						type: 'edit',
-					},
-					{
-						title: '数据视图管理',
-						path:
-							'/dataManage/businessManage/businessPreview/InfoSys/viewsManage',
-						exact: true,
-						component: 'ViewsManage',
-						role: ['public', 'admin', 'developer'],
-						isHide: 'Y',
-						children: [
-							{
-								title: '查看数据视图',
-								path:
-									'/dataManage/businessManage/businessPreview/InfoSys/viewsManage/preview',
-								exact: true,
-								component: 'ViewsPreviewAndCreateAndEdit',
-								role: ['public', 'admin', 'developer'],
-								isHide: 'Y',
-								type: 'preview',
-							},
-							{
-								title: '新建数据视图',
-								path:
-									'/dataManage/businessManage/businessPreview/InfoSys/viewsManage/create',
-								exact: true,
-								component: 'ViewsPreviewAndCreateAndEdit',
-								role: ['public', 'admin', 'developer'],
-								isHide: 'Y',
-								type: 'create',
-							},
-							{
-								title: '编辑数据视图',
-								path:
-									'/dataManage/businessManage/businessPreview/InfoSys/viewsManage/edit',
-								exact: true,
-								component: 'ViewsPreviewAndCreateAndEdit',
-								role: ['public', 'admin', 'developer'],
-								isHide: 'Y',
-								type: 'edit',
-							},
-						],
-					},
-					{
-						title: '查看表单',
-						path: '/dataManage/businessManage/businessPreview/schema/preview',
-						exact: true,
-						component: 'SchemaPreviewAndCreateAndEdit',
-						role: ['public', 'admin', 'developer'],
-						isHide: 'Y',
-						type: 'preview',
-					},
-					{
-						title: '新建表单',
-						path: '/dataManage/businessManage/businessPreview/schema/create',
-						exact: true,
-						component: 'SchemaPreviewAndCreateAndEdit',
-						role: ['public', 'admin', 'developer'],
-						isHide: 'Y',
-						type: 'create',
-					},
-					{
-						title: '编辑表单',
-						path: '/dataManage/businessManage/businessPreview/schema/edit',
-						exact: true,
-						component: 'SchemaPreviewAndCreateAndEdit',
-						role: ['public', 'admin', 'developer'],
-						isHide: 'Y',
-						type: 'edit',
-					},
-				],
-			},
-		],
-	},
-	{
-		title: '数据源管理',
-		path: '/dataManage/dataSource',
-		exact: true,
-		component: 'DataManage',
-		role: ['public', 'admin', 'developer'],
-		children: [
-			{
-				title: '新增数据源',
-				path: '/dataManage/dataSource/create',
-				exact: true,
-				component: 'DataSourceCreateEditPreviewLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-				type: 'create',
-			},
-			{
-				title: '编辑数据源',
-				path: '/dataManage/dataSource/edit',
-				exact: true,
-				component: 'DataSourceCreateEditPreviewLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-				type: 'edit',
-			},
-			{
-				title: '查看数据源',
-				path: '/dataManage/dataSource/preview',
-				exact: true,
-				component: 'DataSourceCreateEditPreviewLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-				type: 'preview',
-			},
-		],
-	},
-	{
-		title: '数据资源管理',
-		path: '/dataManage/dataReSource',
-		exact: true,
-		component: 'DataResource',
-		role: ['public', 'admin', 'developer'],
-		children: [
-			{
-				title: '新增数据资源',
-				path: '/dataManage/dataResource/create',
-				exact: true,
-				component: 'DataResourceCreateLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-			},
-			{
-				title: '批量新增数据资源',
-				path: '/dataManage/dataReSource/batchCreate',
-				exact: true,
-				component: 'DataResourceBatchCreateLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-			},
-			{
-				title: '编辑数据资源',
-				path: '/dataManage/dataReSource/edit',
-				exact: true,
-				component: 'DataResourceEditLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-			},
-			{
-				title: '查看数据资源',
-				path: '/dataManage/dataReSource/preview',
-				exact: true,
-				component: 'DataResourcePreviewLayout',
-				role: ['public', 'admin', 'developer'],
-				isHide: 'Y',
-			},
-		],
-	},
 ]

@@ -277,12 +277,12 @@ class DataSourceManage extends React.Component {
 	}
 	edit = (item) => {
 		this.props.history.push(
-			`/dataManage/dataSource/edit?type=${item.type}&uuid=${item.uuid}&title=${encodeURI(item.name)}`
+			`/dataManage/dataSource/source/edit?type=${item.type}&uuid=${item.uuid}&title=${encodeURI(item.name)}`
 		)
 	}
 	preview = (item) => {
 		this.props.history.push(
-			`/dataManage/dataSource/preview?type=${item.type}&uuid=${item.uuid}&title=${encodeURI(item.name)}`
+			`/dataManage/dataSource/source/preview?type=${item.type}&uuid=${item.uuid}&title=${encodeURI(item.name)}`
 		)
 	}
 

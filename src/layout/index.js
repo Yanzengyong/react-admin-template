@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-18 12:09:44
+ * @LastEditTime: 2020-09-18 16:07:42
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -247,53 +247,58 @@ class Layout extends React.Component {
 	renderNavHandle = (menu) =>
 		menu.map((menuItem) => {
 			const UserInfo = window.localStorage.getItem('UserInfo') ? JSON.parse(window.localStorage.getItem('UserInfo')) : {}
-			console.log(UserInfo)
+
 			// 复用逻辑
 			const renderItem = (data) => {
-				console.log(data)
-				if (UserInfo && UserInfo.role && data.role.indexOf(UserInfo.role) !== -1) {
-					if (
-						data.path.indexOf('http') !== -1 ||
-						data.path.indexOf('http') !== -1
-					) {
-						return (
-							<Item key={data.path} data={data}>
-								<a
-									rel="noopener noreferrer"
-									href={data.path}
-									target="_blank"
-								>
-									{data.title}
-								</a>
-							</Item>
-						)
-					} else {
-						return (
-							<Item key={data.path} data={data}>
-								<Link className="menu_title" to={data.path}>
-									{data.title}
-								</Link>
-							</Item>
-						)
-					}
-				}
-			}
 
-			if (menuItem.children && menuItem.children.length > 0) {
-				const isSubNav = menuItem.children.some(
-					(item) => item.isHide && item.isHide === 'Y'
-				)
-				if (!isSubNav) {
+				if (
+					data.path.indexOf('http') !== -1 ||
+					data.path.indexOf('http') !== -1
+				) {
 					return (
-						<SubNav label={menuItem.title} key={menuItem.path}>
-							{this.renderNavHandle(menuItem.children)}
-						</SubNav>
+						<Item key={data.path} data={data}>
+							<a
+								rel="noopener noreferrer"
+								href={data.path}
+								target="_blank"
+							>
+								{data.title}
+							</a>
+						</Item>
 					)
 				} else {
+					return (
+						<Item key={data.path} data={data}>
+							<Link className="menu_title" to={data.path}>
+								{data.title}
+							</Link>
+						</Item>
+					)
+				}
+
+			}
+
+			if (UserInfo && UserInfo.role && menuItem.role.indexOf(UserInfo.role) !== -1) {
+
+				if (menuItem.children && menuItem.children.length > 0) {
+					const isSubNav = menuItem.children.some(
+						(item) => item.isHide && item.isHide === 'Y'
+					)
+					if (!isSubNav) {
+						return (
+							<SubNav label={menuItem.title} key={menuItem.path}>
+								{this.renderNavHandle(menuItem.children)}
+							</SubNav>
+						)
+					} else {
+
+						return renderItem(menuItem)
+					}
+				} else {
+
 					return renderItem(menuItem)
 				}
-			} else {
-				return renderItem(menuItem)
+
 			}
 
 		})

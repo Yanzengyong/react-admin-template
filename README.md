@@ -55,6 +55,7 @@ const DefaultMenu = {
 | sideMenu    | 平台的默认的菜单数组对象                                   | Array    | []     |
 | exact       | 路由地址是否为精确匹配                                     | Boolean  | false  |
 | isHide      | 是否隐藏该路由菜单 <br/> 若需要隐藏，则设置isHide: 'Y'     | String   | -      |
+| isSub      	| 是否为submenu <br/> 设置值为true，可以下拉该菜单，此时不需要写component和exact     | Boolean   | -      |
 | component   | 该路径下对应的组件名称，没有则不写                         | String   | -      |
 | children    | 该路径下的子集，没有则不写                                 | Array    | []     |
 | type        | 新建/编辑/查看路由下，需增加类型属性，指明跳转至该类型页面 | String   | -      |

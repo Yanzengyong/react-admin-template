@@ -49,7 +49,7 @@ export default class dataSourceDrawer extends Component {
   									key={item}
   									onClick={() => {
   										this.props.history.push(
-  											`/dataManage/dataSource/create?type=${item}&title=${item}`
+  											`/dataManage/dataSource/source/create?type=${item}&title=${item}`
   										)
   									}}
   								/>
@@ -68,7 +68,7 @@ export default class dataSourceDrawer extends Component {
   									key={item}
   									onClick={() => {
   										this.props.history.push(
-  											`/dataManage/dataSource/create?type=${item}&title=${item}`
+  											`/dataManage/dataSource/source/create?type=${item}&title=${item}`
   										)
   									}}
   								/>
@@ -87,7 +87,7 @@ export default class dataSourceDrawer extends Component {
   									key={index}
   									onClick={() => {
   										this.props.history.push(
-  											`/dataManage/dataSource/create?type=${item}&title=${item}`
+  											`/dataManage/dataSource/source/create?type=${item}&title=${item}`
   										)
   									}}
   								/>
