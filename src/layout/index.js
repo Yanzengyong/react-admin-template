@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-18 11:09:53
+ * @LastEditTime: 2020-09-18 12:09:44
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -242,9 +242,43 @@ class Layout extends React.Component {
 		})
 	}
 
+
 	// 渲染侧边菜单的函数
 	renderNavHandle = (menu) =>
 		menu.map((menuItem) => {
+			const UserInfo = window.localStorage.getItem('UserInfo') ? JSON.parse(window.localStorage.getItem('UserInfo')) : {}
+			console.log(UserInfo)
+			// 复用逻辑
+			const renderItem = (data) => {
+				console.log(data)
+				if (UserInfo && UserInfo.role && data.role.indexOf(UserInfo.role) !== -1) {
+					if (
+						data.path.indexOf('http') !== -1 ||
+						data.path.indexOf('http') !== -1
+					) {
+						return (
+							<Item key={data.path} data={data}>
+								<a
+									rel="noopener noreferrer"
+									href={data.path}
+									target="_blank"
+								>
+									{data.title}
+								</a>
+							</Item>
+						)
+					} else {
+						return (
+							<Item key={data.path} data={data}>
+								<Link className="menu_title" to={data.path}>
+									{data.title}
+								</Link>
+							</Item>
+						)
+					}
+				}
+			}
+
 			if (menuItem.children && menuItem.children.length > 0) {
 				const isSubNav = menuItem.children.some(
 					(item) => item.isHide && item.isHide === 'Y'
@@ -256,54 +290,12 @@ class Layout extends React.Component {
 						</SubNav>
 					)
 				} else {
-					if (
-						menuItem.path.indexOf('http') !== -1 ||
-						menuItem.path.indexOf('http') !== -1
-					) {
-						return (
-							<Item key={menuItem.path} data={menuItem}>
-								<a
-									rel="noopener noreferrer"
-									href={menuItem.path}
-									target="_blank"
-								>
-									{' '}
-									{menuItem.title}{' '}
-								</a>
-							</Item>
-						)
-					} else {
-						return (
-							<Item key={menuItem.path} data={menuItem}>
-								<Link className="menu_title" to={menuItem.path}>
-									{' '}
-									{menuItem.title}{' '}
-								</Link>
-							</Item>
-						)
-					}
+					return renderItem(menuItem)
 				}
 			} else {
-				if (
-					menuItem.path.indexOf('http') !== -1 ||
-					menuItem.path.indexOf('http') !== -1
-				) {
-					return (
-						<Item key={menuItem.path} data={menuItem}>
-							<a rel="noopener noreferrer" href={menuItem.path} target="_blank">
-								{' '}
-								{menuItem.title}{' '}
-							</a>
-						</Item>
-					)
-				} else {
-					return (
-						<Item key={menuItem.path} data={menuItem}>
-							<Link to={menuItem.path}> {menuItem.title} </Link>
-						</Item>
-					)
-				}
+				return renderItem(menuItem)
 			}
+
 		})
 
 	// tab栏的关闭
