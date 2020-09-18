@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-18 11:09:53
+ * @LastEditTime: 2020-09-18 10:49:44
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -29,17 +29,19 @@ class Layout extends React.Component {
 		sideNavSelectedKeys: [], // 左侧菜单栏选中的selectkeys
 		sideNavOpenKeys: [], // 左侧菜单栏打开的openkeys
 		activeKey: '',
+		MenuState: []
 	}
 	componentDidMount () {
 		const route = this.props.location
-		window.localStorage.setItem('UserInfo', JSON.stringify(
-			{
-				role: 'admin'
-			}
-		))
+
 		this.renderRouteTab(route)
 		this.initMenu(route.pathname)
 		this.routerListenerHandle()
+		setTimeout(() => {
+			this.setState({
+				MenuState: MenuConfig
+			})
+		}, 5000)
 	}
 
 	componentWillUnmount () {
@@ -123,7 +125,7 @@ class Layout extends React.Component {
 
 	// 获取当前的菜单对象
 	findCurrentRouteItem = (path, title) => {
-		const routeList = instantiationRouteDiv(MenuConfig)
+		const routeList = instantiationRouteDiv(this.state.MenuState)
 		const currentPath = path
 		const currentTitle = title
 
@@ -154,8 +156,7 @@ class Layout extends React.Component {
 	initMenu = (path) => {
 		const UrlPath = path === '/' ? DefaultMenu.path : path
 
-
-		const currentMain = MenuConfig.find((item) => {
+		const currentMain = this.state.MenuState.find((item) => {
 			return UrlPath.indexOf(item.path) !== -1
 		})
 
@@ -477,6 +478,7 @@ class Layout extends React.Component {
 			showContextMenu,
 			y,
 			x,
+			MenuState
 		} = this.state
 		const {
 			tabs
@@ -501,7 +503,7 @@ class Layout extends React.Component {
 							selectedKeys={MainNavselectedKeys}
 							onSelect={this.headerNavSelect}
 						>
-							{MenuConfig.map((item) => (
+							{MenuState.map((item) => (
 								<Item key={item.path} data={item}>
 									{item.title}
 								</Item>
