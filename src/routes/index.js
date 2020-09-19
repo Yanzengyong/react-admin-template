@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 22:42:56
+ * @LastEditTime: 2020-09-19 23:06:36
  */
 /**
  * 定义应用路
@@ -21,7 +21,6 @@ import Layout from '@/layout'
 import NotFound from '@/pages/NotFound'
 import MenuConfig from '@/menus'
 import AllPages from '@/pagesConfig'
-import Login from '@/pages/Login'
 
 
 // 处理菜单列表，实例化路由标签
@@ -79,17 +78,20 @@ const AuthRouteComponentHandle = (props) => {
 		)
 	} else {
 		return (
-			<Route component={((extra) => (props) => <NotFound {...props} {...extra} />)({ Auth: 'no' })}/>
+			<Route component={((extra) => (props) => <NotFound {...props} {...extra} />)({ Auth: 'no' })} />
 		)
 	}
 }
 
 const routeList = instantiationRouteDiv(MenuConfig)
+// layout路由列表
 const LayoutRouteList = routeList.filter((item) => item.layout)
+// 无layout路由列表
 const OriginalRouteList = routeList.filter((item) => {
 	const hasLayout = item.layout ?? false
 	return hasLayout === false
 })
+// 路由渲染装饰器
 const DecoratorRouteLayout = (OriginalRouteList, LayoutRouteList) => {
 	return (Comp) => {
 		return (props) => {

@@ -4,13 +4,13 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 22:48:30
+ * @LastEditTime: 2020-09-19 23:08:37
  */
 export default [
 	{
 		path: '/login',
 		exact: true,
-		component: 'DataManageMain',
+		component: 'Login',
 		role: ['public', 'admin', 'developer'],
 	},
 	{

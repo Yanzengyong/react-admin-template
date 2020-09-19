@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 22:47:51
+ * @LastEditTime: 2020-09-19 23:07:52
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -24,7 +24,7 @@ class Layout extends React.Component {
 	state = {
 		showContextMenu: false,
 		currentContextMenu: {}, // 右键点击的tab
-		sideMenu: [],
+		sideMenu: [],	// 左侧菜单栏
 		MainNavselectedKeys: [],
 		sideNavSelectedKeys: [], // 左侧菜单栏选中的selectkeys
 		sideNavOpenKeys: [], // 左侧菜单栏打开的openkeys

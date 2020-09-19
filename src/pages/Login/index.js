@@ -4,14 +4,79 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-19 14:24:01
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 14:27:10
+ * @LastEditTime: 2020-09-19 23:45:37
  */
 import React from 'react'
+import { Form, Input } from '@alifd/next'
+import './index.scss'
 
+
+const FormItem = Form.Item
+
+const formItemLayout = {
+	wrapperCol: {
+		span: 24
+	}
+}
 class LoginPage extends React.Component {
+
+	handleSubmit = (val) => {
+
+		if (Object.keys(val).length > 0) {
+			if (val.username === 'admin' && val.password === 'admin') {
+				window.localStorage.setItem('UserInfo', JSON.stringify(
+					{
+						role: 'admin'
+					}
+				))
+				this.props.history.replace('/dataManage/main')
+			}
+			if (val.username === '123' && val.password === '123') {
+				window.localStorage.setItem('UserInfo', JSON.stringify(
+					{
+						role: 'public'
+					}
+				))
+				this.props.history.replace('/dataManage/main')
+			}
+		}
+	}
+
 	render () {
+		console.log(this.props)
 		return (
-			<div>我是登陆页面</div>
+			<div className='login_container'>
+				<div className="tip">
+					<div className='tip_item'>
+						<h3>tourist:</h3>
+						<div className='account'>
+							username: 123 ; password: 123
+						</div>
+					</div>
+					<div className='tip_item'>
+						<h3>admin:</h3>
+						<div className='account'>
+							username: admin ; password: admin
+						</div>
+					</div>
+				</div>
+				<div className="login_box">
+					<h1>登陆</h1>
+					<Form size='large' style={{ width: 300 }} {...formItemLayout} >
+						<FormItem >
+							<Input name="username" placeholder="Please Enter Username / 请输入用户名称"/>
+						</FormItem>
+						<FormItem >
+							<Input htmlType="password" name="password" placeholder="Please Enter Password / 请输入密码"/>
+						</FormItem>
+						<FormItem className='login_submit'>
+							<Form.Submit style={{ width: '50%' }} type='primary' onClick={this.handleSubmit}>
+								登陆
+							</Form.Submit>
+						</FormItem>
+					</Form>
+				</div>
+			</div>
 		)
 	}
 }
