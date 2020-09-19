@@ -1,8 +1,8 @@
 /*
  * @Author: Zhangyao
  * @Date: 2020-08-13 09:11:24
- * @LastEditors: Zhangyao
- * @LastEditTime: 2020-08-28 16:10:31
+ * @LastEditors: Yanzengyong
+ * @LastEditTime: 2020-09-18 17:36:57
  */
 import React from 'react'
 import IconFont from '@/components/IconFont'
@@ -11,7 +11,8 @@ import DataSourceDrawer from '@/componentsService/DataSourceDrawer'
 import './index.scss'
 import { findSpecRouteItem } from '@/utils/menuForRoute'
 
-export default class DataManageMain extends React.Component {
+
+class DataManageMain extends React.Component {
 	state = {
 		dataSourceDrawerVisible: false,
 	}
@@ -100,3 +101,5 @@ export default class DataManageMain extends React.Component {
 		)
 	}
 }
+
+export default DataManageMain

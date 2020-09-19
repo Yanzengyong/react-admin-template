@@ -53,10 +53,12 @@
 			font-size: 13px;
 
 			.avatar {
-				width: 24px;
-				height: 24px;
+				width: 30px;
+				height: 30px;
 				border-radius: 50%;
 				vertical-align: middle;
+				cursor: pointer;
+				background-color: #96c43a;
 			}
 
 			.user_info {

@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-18 16:07:42
+ * @LastEditTime: 2020-09-19 22:47:51
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -161,9 +161,9 @@ class Layout extends React.Component {
 
 		const currentMainSelectKeys = currentMain ? currentMain.path : ''
 
-		const currentSideMenu = currentMain ? currentMain.sideMenu : []
+		const currentLayoutSideMenu = currentMain ? currentMain.sideMenu.filter((item) => item.layout) : []
 
-		const expendSideMenus = expendSideMenusHandle(currentSideMenu)
+		const expendSideMenus = expendSideMenusHandle(currentLayoutSideMenu)
 
 		const currentPathInfo =
 			expendSideMenus.find((item) => item.path === UrlPath) ?? {}
@@ -176,7 +176,7 @@ class Layout extends React.Component {
 
 		this.setState({
 			MainNavselectedKeys: currentMainSelectKeys,
-			sideMenu: currentSideMenu,
+			sideMenu: currentLayoutSideMenu,
 			sideNavSelectedKeys: sideNavSelectedKeys,
 			sideNavOpenKeys: sideNavOpenKeys,
 		})
@@ -485,7 +485,7 @@ class Layout extends React.Component {
 					<div className="layout_logo">
 						<div className="layout_logo_box">
 							<img
-								src="assets/images/cetclogo.png"
+								src="assets/images/logo.png"
 								className="avatar"
 								alt="用户头像"
 							/>
@@ -507,12 +507,13 @@ class Layout extends React.Component {
 					</div>
 					<div className="layout_user_box">
 						<img
-							src="https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png"
+							src="assets/images/ironman.png"
 							className="avatar"
 							alt="用户头像"
 						/>
 						<div className="user_info">
-							{window.localStorage.getItem('CURRENT_USER')}
+							{/* {window.localStorage.getItem('CURRENT_USER')} */}
+							Iron Man
 						</div>
 					</div>
 				</div>

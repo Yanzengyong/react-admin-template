@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-18 10:49:44
+ * @LastEditTime: 2020-09-18 17:44:57
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -490,7 +490,7 @@ class Layout extends React.Component {
 					<div className="layout_logo">
 						<div className="layout_logo_box">
 							<img
-								src="assets/images/cetclogo.png"
+								src="assets/images/logo.png"
 								className="avatar"
 								alt="用户头像"
 							/>
