@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-20 16:01:59
+ * @LastEditTime: 2020-09-20 16:33:16
  */
 export default [
 	{
@@ -15,30 +15,30 @@ export default [
 	},
 	{
 		title: '首页',
-		path: '/dataManage/main',
+		path: '/taskManage/main',
 		exact: true,
 		component: 'DataManageMain',
 		role: ['public', 'admin'],
 		layout: true
 	},
 	{
-		title: '数据源接入',
-		path: '/dataManage/dataSource',
+		title: '任务信息接入',
+		path: '/taskManage/dataSource',
 		isSub: true,
 		layout: true,
 		role: ['public', 'admin'],
 		children: [
 			{
-				title: '数据源管理',
-				path: '/dataManage/dataSource/source',
+				title: '任务管理',
+				path: '/taskManage/dataSource/source',
 				exact: true,
 				component: 'DataManage',
 				layout: true,
 				role: ['public', 'admin'],
 				children: [
 					{
-						title: '新增数据源',
-						path: '/dataManage/dataSource/source/create',
+						title: '新增任务信息',
+						path: '/taskManage/dataSource/source/create',
 						exact: true,
 						component: 'DataSourceCreateEditPreviewLayout',
 						layout: true,
@@ -47,8 +47,8 @@ export default [
 						type: 'create',
 					},
 					{
-						title: '编辑数据源',
-						path: '/dataManage/dataSource/source/edit',
+						title: '编辑任务信息',
+						path: '/taskManage/dataSource/source/edit',
 						exact: true,
 						component: 'DataSourceCreateEditPreviewLayout',
 						layout: true,
@@ -57,8 +57,8 @@ export default [
 						type: 'edit',
 					},
 					{
-						title: '查看数据源',
-						path: '/dataManage/dataSource/source/preview',
+						title: '查看任务',
+						path: '/taskManage/dataSource/source/preview',
 						exact: true,
 						component: 'DataSourceCreateEditPreviewLayout',
 						layout: true,

@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 23:07:52
+ * @LastEditTime: 2020-09-20 16:15:35
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -16,10 +16,16 @@ import { DefaultMenu, expendSideMenusHandle, instantiationRouteDiv } from '@/uti
 import { getQueryItemValue } from '@/utils/common'
 import { connect } from 'react-redux'
 import { Tab as TabAction } from '@/reduxActions'
+import { getUserInfo } from '@/utils/authentication'
 import './index.scss'
 const { Item, SubNav } = Nav
 
-
+@connect((state) => (
+	{
+		state: state.tabs
+	}
+), TabAction)
+@withRouter
 class Layout extends React.Component {
 	state = {
 		showContextMenu: false,
@@ -32,11 +38,6 @@ class Layout extends React.Component {
 	}
 	componentDidMount () {
 		const route = this.props.location
-		window.localStorage.setItem('UserInfo', JSON.stringify(
-			{
-				role: 'admin'
-			}
-		))
 		this.renderRouteTab(route)
 		this.initMenu(route.pathname)
 		this.routerListenerHandle()
@@ -246,7 +247,7 @@ class Layout extends React.Component {
 	// 渲染侧边菜单的函数
 	renderNavHandle = (menu) =>
 		menu.map((menuItem) => {
-			const UserInfo = window.localStorage.getItem('UserInfo') ? JSON.parse(window.localStorage.getItem('UserInfo')) : {}
+			const UserInfo = getUserInfo()
 
 			// 复用逻辑
 			const renderItem = (data) => {
@@ -507,13 +508,18 @@ class Layout extends React.Component {
 					</div>
 					<div className="layout_user_box">
 						<img
-							src="assets/images/ironman.png"
+							src={
+								Object.keys(getUserInfo()).length > 0 ?
+								getUserInfo().avatar : '-'
+							}
 							className="avatar"
 							alt="用户头像"
 						/>
 						<div className="user_info">
-							{/* {window.localStorage.getItem('CURRENT_USER')} */}
-							Iron Man
+							{
+								Object.keys(getUserInfo()).length > 0 ?
+								getUserInfo().name : '-'
+							}
 						</div>
 					</div>
 				</div>
@@ -570,8 +576,4 @@ class Layout extends React.Component {
 	}
 }
 
-export default connect((state) => (
-	{
-		state: state.tabs
-	}
-), TabAction)(withRouter(Layout))
+export default Layout

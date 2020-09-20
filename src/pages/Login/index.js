@@ -4,10 +4,11 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-19 14:24:01
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 23:45:37
+ * @LastEditTime: 2020-09-20 16:41:07
  */
 import React from 'react'
 import { Form, Input } from '@alifd/next'
+import { setUserInfo } from '@/utils/authentication'
 import './index.scss'
 
 
@@ -24,26 +25,26 @@ class LoginPage extends React.Component {
 
 		if (Object.keys(val).length > 0) {
 			if (val.username === 'admin' && val.password === 'admin') {
-				window.localStorage.setItem('UserInfo', JSON.stringify(
-					{
-						role: 'admin'
-					}
-				))
-				this.props.history.replace('/dataManage/main')
+				setUserInfo({
+					role: 'admin',
+					avatar: 'assets/images/ironman.png',
+					name: 'Iron Man'
+				})
+				this.props.history.replace('/taskManage/main')
 			}
 			if (val.username === '123' && val.password === '123') {
-				window.localStorage.setItem('UserInfo', JSON.stringify(
-					{
-						role: 'public'
-					}
-				))
-				this.props.history.replace('/dataManage/main')
+				setUserInfo({
+					role: 'public',
+					avatar: 'assets/images/CaptainAmerica.png',
+					name: 'Captain America'
+				})
+				this.props.history.replace('/taskManage/main')
 			}
 		}
 	}
 
 	render () {
-		console.log(this.props)
+
 		return (
 			<div className='login_container'>
 				<div className="tip">

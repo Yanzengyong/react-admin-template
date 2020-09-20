@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-19 23:06:36
+ * @LastEditTime: 2020-09-20 16:39:10
  */
 /**
  * 定义应用路
@@ -21,6 +21,7 @@ import Layout from '@/layout'
 import NotFound from '@/pages/NotFound'
 import MenuConfig from '@/menus'
 import AllPages from '@/pagesConfig'
+import { getUserInfo } from 'utils/authentication'
 
 
 // 处理菜单列表，实例化路由标签
@@ -56,7 +57,7 @@ const AuthRouteComponentHandle = (props) => {
 		...restProps
 	} = props
 
-	const UserInfo = window.localStorage.getItem('UserInfo') ? JSON.parse(window.localStorage.getItem('UserInfo')) : {}
+	const UserInfo = getUserInfo()
 
 	if (UserInfo && UserInfo.role && role.indexOf(UserInfo.role) !== -1) {
 		return (
@@ -124,7 +125,7 @@ class Routes extends React.Component {
 							return <AuthRouteComponentHandle key={item.path} {...item} />
 						})
 					}
-					<Redirect from='/' exact to="/dataManage/main" />
+					<Redirect from='/' exact to="/taskManage/main" />
 					<Route component={NotFound}/>
 				</Switch>
 			</Layout>

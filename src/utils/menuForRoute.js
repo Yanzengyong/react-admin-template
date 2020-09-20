@@ -4,15 +4,17 @@
  * @Author: Yanzengyong
  * @Date: 2020-08-19 17:00:59
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-08-30 23:38:53
+ * @LastEditTime: 2020-09-20 16:44:13
  */
 import MenuConfig from '@/menus'
 
-const DefaultMenu = {
+const DefaultMenu = 	{
 	title: '首页',
-	path: '/dataManage/main',
+	path: '/taskManage/main',
 	exact: true,
 	component: 'DataManageMain',
+	role: ['public', 'admin'],
+	layout: true
 }
 
 
