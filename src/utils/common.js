@@ -4,121 +4,11 @@
  * @Author: Yanzengyong
  * @Date: 2020-08-26 17:58:08
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-17 11:57:53
+ * @LastEditTime: 2020-09-22 17:10:45
  */
 import warning from 'rc-util/lib/warning'
 import store from '@/store'
-import { findCurrentRouteItem } from '@/utils/menuForRoute'
-import { Message, Notification } from '@alifd/next'
-import DeleteNotice from '@/components/DeleteNotice'
 
-// 根据location.state中的currentPage获取当前缓存页码
-const getCurrentPageFromLocation = (props) => {
-	return props && props.history && props.history.location.state ? props.history.location.state.currentPage : 1
-}
-
-/**
- * @跳转页面
- * @pageNum 需要缓存于props.location.state中的当前页码
- * @routeName 配置在menu里面对应路由的title名称，例如：`“新建业务”`
- * @queryParam 跳转页面需要在路由的query部分携带的参数，类型为数组，包含label和value键值对例如：
- * ```const queryParam = [
-			{ label: 'businessUuid', value: item.uuid },
-			{ label: 'title', value: encodeURI(item.name) },
-		]```
- */
-const jumpToPage = (props, pageNum, routeName, queryParam) => {
-	const page = findCurrentRouteItem(props.location.pathname)
-	const JobPage = page && page.children ? page.children.filter((item) => item.title === routeName) : undefined
-	let queryStr = ''
-	if (queryParam && queryParam.length && queryParam.length > 0) {
-		queryParam.map(item => {
-			queryStr = queryStr + '&' + item.label + '=' + item.value
-		})
-	}
-	queryStr = queryStr.substr(1)
-
-	if (JobPage && JobPage[0]) {
-		const path = {
-			pathname: `${JobPage[0].path}`,
-			search: queryStr,
-			state: {
-				currentPage: pageNum
-			}
-		}
-		props.history.push(path)
-	}
-}
-
-/**
- * @删除表格或列表中对象的方法
- * @thisEvent 调用当前方法的组件的this对象，使用时直接传入this即可
- * @deleteAction 删除item的请求方法
- * @selectedRowKeys 需删除的uuid数组对象
- * @callback 删除成功后的回调函数
- * @样例： deleteListItemAction(this, deleteBusinessRQ, selectedRowKeys, this.getlistHandle)
- */
-const deleteListItemAction = (thisEvent, deleteAction, selectedRowKeys, callback) => {
-	if (selectedRowKeys.length > 0) {
-		DeleteNotice.show({
-			message: '该数据删除后无法恢复',
-			onCancel: () => {
-				DeleteNotice.close()
-			},
-			onConfirm: async () => {
-				DeleteNotice.close()
-				// 确认删除
-				const response = await deleteAction({ uuids: selectedRowKeys })
-				if (response) {
-					let deleteFailList = []
-					// 通过notification展示
-					if (response.code === 10000) {
-						if (response.result && response.result.length > 0) {
-							response.result.map(item => {
-								deleteFailList.push(item.uuid)
-								let content = ''
-								if (item.name && item.msg) {
-									content = item.name + '删除失败：' + item.msg
-								}
-								else if (item.msg) {
-									content = '删除失败!'
-								}
-								Notification.error({
-									placement: 'topRight',
-									content: content,
-									duration: 3000
-								})
-							})
-						}
-						// 当前页完全删除：页数返回上一页 + 刷新页面数据
-						if (selectedRowKeys.length === thisEvent.state.data.length && thisEvent.state.currentPage !== 1 && deleteFailList.length === 0) {
-							Message.success('删除成功')
-							thisEvent.setState({
-								currentPage: thisEvent.state.currentPage - 1
-							}, () => {
-									callback()
-							})
-						}
-						// 当前页不完全删除：页数不变 + 刷新页面数据
-						else {
-							if (deleteFailList.length === 0) Message.success('删除成功')
-							callback()
-						}
-						thisEvent.setState({ selectedRowKeys: deleteFailList })
-					} else {
-						Message.error(response.msg || '删除失败')
-					}
-				}
-				else {
-					Message.error('删除失败')
-				}
-			},
-		})
-	} else {
-		Message.warning('未选中任何数据')
-	}
-
-}
 
 // 获取query值中某个固定属性值
 const getQueryItemValue = (query, attr) => {
@@ -195,8 +85,5 @@ const hasStorageAndInit = () => {
 export {
 	getQueryItemValue,
 	leaveAndSave,
-	hasStorageAndInit,
-	getCurrentPageFromLocation,
-	jumpToPage,
-	deleteListItemAction
+	hasStorageAndInit
 }

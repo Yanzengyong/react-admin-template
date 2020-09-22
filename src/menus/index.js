@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-20 16:42:50
+ * @LastEditTime: 2020-09-22 15:20:37
  */
 // import DataManage from './DataManage'
 
@@ -34,7 +34,7 @@ const Menu = [
 		title: '英雄管理平台',
 		icon: '',
 		path: '/userManage',
-		defaultPath: '/userManage/dataSource',
+		defaultPath: '/userManage/userInfo',
 		sideMenu: UserManage
 	},
 ]

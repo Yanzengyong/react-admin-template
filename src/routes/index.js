@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-20 16:39:10
+ * @LastEditTime: 2020-09-22 22:05:46
  */
 /**
  * 定义应用路
@@ -105,7 +105,7 @@ const DecoratorRouteLayout = (OriginalRouteList, LayoutRouteList) => {
 class Routes extends React.Component {
 
 	render () {
-		console.log(this.props)
+		// console.log(this.props)
 		const { location, OriginalRouteList, LayoutRouteList } = this.props
 		const pathname = location.pathname
 		// 路由是否包含layout

@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-20 16:15:35
+ * @LastEditTime: 2020-09-22 22:40:35
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -77,6 +77,7 @@ class Layout extends React.Component {
 
 	// 根据路由来渲染对应的tab页面
 	renderRouteTab = (route) => {
+
 		const NotFound = {
 			title: 'NotFound',
 			path: route.pathname,
@@ -218,12 +219,14 @@ class Layout extends React.Component {
 			(item) => item !== null && item !== undefined
 		)
 		let obj = {}
+
 		return deleteInvalid.reduce((curs, next) => {
 			if (!next.search) {
 				obj[next.path] ? '' : obj[next.path] = true && curs.push(next)
 			} else {
-				obj[next.path] ? curs.findIndex((item) => item.search === next.search) !== -1 ? '' : obj[next.path] = true && curs.push(next) : obj[next.path] = true && curs.push(next)
+				obj[next.path] ? curs.findIndex((item) => `${item.path}${item.search}` === `${next.path}${next.search}`) !== -1 ? '' : obj[next.path] = true && curs.push(next) : obj[next.path] = true && curs.push(next)
 			}
+
 			return curs
 		}, [])
 	}
@@ -302,7 +305,7 @@ class Layout extends React.Component {
 
 			}
 
-		})
+	})
 
 	// tab栏的关闭
 	onCloseTab = async (path, search) => {

@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-20 16:33:16
+ * @LastEditTime: 2020-09-22 15:10:09
  */
 export default [
 	{
@@ -17,7 +17,7 @@ export default [
 		title: '首页',
 		path: '/taskManage/main',
 		exact: true,
-		component: 'DataManageMain',
+		component: 'TaskDataMain',
 		role: ['public', 'admin'],
 		layout: true
 	},
@@ -32,7 +32,7 @@ export default [
 				title: '任务管理',
 				path: '/taskManage/dataSource/source',
 				exact: true,
-				component: 'DataManage',
+				component: 'TaskDataManage',
 				layout: true,
 				role: ['public', 'admin'],
 				children: [
@@ -40,7 +40,7 @@ export default [
 						title: '新增任务信息',
 						path: '/taskManage/dataSource/source/create',
 						exact: true,
-						component: 'DataSourceCreateEditPreviewLayout',
+						component: 'TaskDataCreateEditPreview',
 						layout: true,
 						role: ['public', 'admin'],
 						isHide: 'Y',
@@ -50,7 +50,7 @@ export default [
 						title: '编辑任务信息',
 						path: '/taskManage/dataSource/source/edit',
 						exact: true,
-						component: 'DataSourceCreateEditPreviewLayout',
+						component: 'TaskDataCreateEditPreview',
 						layout: true,
 						role: ['public', 'admin'],
 						isHide: 'Y',
@@ -60,7 +60,7 @@ export default [
 						title: '查看任务',
 						path: '/taskManage/dataSource/source/preview',
 						exact: true,
-						component: 'DataSourceCreateEditPreviewLayout',
+						component: 'TaskDataCreateEditPreview',
 						layout: true,
 						role: ['public', 'admin'],
 						isHide: 'Y',

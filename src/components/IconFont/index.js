@@ -1,8 +1,8 @@
 /*
  * @Author: Zhangyao
  * @Date: 2020-08-04 10:55:23
- * @LastEditors: Zhangyao
- * @LastEditTime: 2020-08-21 15:52:08
+ * @LastEditors: Yanzengyong
+ * @LastEditTime: 2020-09-22 16:20:23
  */
 /*
 组件说明： 用Fusion组件引用iconfont工程图标文件
@@ -33,7 +33,7 @@ export default class IconFont extends React.Component {
   render () {
   	const { type, size, style, className, onClick } = this.props
   	const CustomIcon = Icon.createFromIconfontCN({
-  		scriptUrl: '//at.alicdn.com/t/font_1989708_v277x7pwlql.js',
+  		scriptUrl: '//at.alicdn.com/t/font_2085850_vu1fohqizmf.js',
   	})
   	return (
   			<CustomIcon onClick={onClick} className={className} type={type} size={size} style={style} />

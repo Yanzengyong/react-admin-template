@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-08-19 17:00:59
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-20 16:44:13
+ * @LastEditTime: 2020-09-22 16:57:17
  */
 import MenuConfig from '@/menus'
 
@@ -86,8 +86,8 @@ const findCurrentRouteItem = (path, title) => {
 // 根据全部menu中任一菜单标题获取该菜单对象
 const findSpecRouteItem = (title) => {
 	const routeList = instantiationRouteDiv(MenuConfig)
-	const specRouteItem = routeList.filter(item => item.title === title)
-	return specRouteItem && specRouteItem[0] ? specRouteItem[0] : []
+	const specRouteItem = routeList.find(item => item.title === title)
+	return specRouteItem ?? {}
 }
 
 export {
