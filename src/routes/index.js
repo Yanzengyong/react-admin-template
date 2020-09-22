@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 22:05:46
+ * @LastEditTime: 2020-09-22 23:20:00
  */
 /**
  * 定义应用路
@@ -56,7 +56,7 @@ const AuthRouteComponentHandle = (props) => {
 		title,
 		...restProps
 	} = props
-
+	console.log(restProps)
 	const UserInfo = getUserInfo()
 
 	if (UserInfo && UserInfo.role && role.indexOf(UserInfo.role) !== -1) {

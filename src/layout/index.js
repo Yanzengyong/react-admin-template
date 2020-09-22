@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 22:40:35
+ * @LastEditTime: 2020-09-22 23:21:44
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -566,10 +566,9 @@ class Layout extends React.Component {
 						</Tab>
 						<div className="layout_content_body">{this.props.children}</div>
 						<div className="layout_footer_copyright">
-							<div className="copyleft">CopyRight © 2020-2021</div>
+							<div className="copyleft">left Text</div>
 							<div className="copyright">
-								版权所有：提升政府治理能力大数据应用技术国家工程实验室
-								中电科大数据研究院有限公司
+								right Text
 							</div>
 						</div>
 					</div>
