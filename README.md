@@ -1,8 +1,18 @@
-# 后台管理
+# react + Fusion design后台管理模版
 
 ## 前言
 
-> 项目构建是基于create-react-app进行构建的，自定义配置使用了config-overrides，详细配置方法可在网上搜索查找；需要注意的是：**项目开发前，务必详细阅读本文档以及[前端开发规范](./specification/index.md)**
+> 该模版包含了菜单和路由配置的结合（菜单配置即路由配置）、类似浏览器的Tab页签功能编写、用户登陆路由鉴权；<br /> <br />项目构建是基于create-react-app进行构建的，可通过config-overrides配置；需要注意的是：**项目开发前，务必详细阅读本文档以及[前端开发规范](./specification/index.md)**
+
+### 预览图
+
+![preview](./public/preview.png)
+
+
+### 预览地址
+
+[预览地址](http://167.179.81.55/admin)
+
 
 ### 项目启动
 
@@ -26,9 +36,9 @@ npm run build
 
 
 ### 关于路由、菜单的设置
->菜单可以在前端自定义写好，也可以通过后端获取渲染，菜单中需要设置所有页面的路由地址及对应的component
 
-> 路由格式：/平台名称/菜单名称/功能名称 【或】 /平台名称/父级菜单名称/菜单名称/功能名称；
+> 菜单可以在前端自定义写好，也可以通过后端获取渲染，菜单中需要设置所有页面的路由地址及对应的component(类型为string，即component的字符串名称，但需要在pageConfig中进行配置) <br /> <br /> 路由格式：/平台名称/菜单名称/功能名称 【或】 /平台名称/父级菜单名称/菜单名称/功能名称；
+
 
 **【备注】设置路由 ‘/’ 重定向请在src/layout/index.js中设置:**
 
@@ -43,7 +53,7 @@ const DefaultMenu = {
 }
 ```
 
-* 菜单统一管理在menus文件夹中；
+* 菜单统一管理在menus文件夹中
 
 #### 菜单配置的参数说明
 
@@ -58,69 +68,29 @@ const DefaultMenu = {
 | isSub      	| 是否为submenu <br/> 设置值为true，可以下拉该菜单，此时不需要写component和exact     | Boolean   | -      |
 | component   | 该路径下对应的组件名称，没有则不写                         | String   | -      |
 | children    | 该路径下的子集，没有则不写                                 | Array    | []     |
-| type        | 新建/编辑/查看路由下，需增加类型属性，指明跳转至该类型页面 | String   | -      |
+| role   |  权限 <br /> 事例：['public', 'admin']                                 | Array    | []     |
+| layout  |  该路由是否存在layout                                 | Boolean    | -    |
 
-**type配置例子，共三步**
-步骤1、在对应的菜单下面新增路由type
-```js
-children: [
-	{
-		title: '新建业务',
-		path: '/dataManage/businessManage/create',
-		exact: true,
-		component: 'BusinessCreateAndEdit',
-		isHide: 'Y',
-		type: 'create'
-	},
-```
-```js
-import React from 'react'
-import InfoLayout from '@/components/InfoLayout'
-import BusinessCreateAndEditService from '@/componentsService/BusinessCreateAndEditService'
-// 步骤2、引入
-import { findCurrentRouteItem } from '@/utils/menuForRoute'
-import './index.scss'
 
-export default class BusinessCreateAndEdit extends React.Component {
-
-	state = {
-		pageType: 'create',
-		initFieldUuid: ''
-	}
-
-	componentDidMount () {
-		//步骤3、使用
-		const Item = findCurrentRouteItem(this.props.location.pathname)
-		this.setState({ pageType: Item && Item.type ? Item.type: 'create' })
-	}
-
-	render () {
-		return (
-			<InfoLayout>
-				<BusinessCreateAndEditService
-					pageType={this.state.pageType}
-					initFieldUuid={this.state.initFieldUuid}
-					onCancel={() => { this.props.history.go(-1) }}
-				/>
-			</InfoLayout>
-		)
-	}
-}
-
-```
-
-* src/menus/index.js为大平台的导航配置（即头部的导航栏）；
+* src/menus/index.js为大平台的导航配置（即头部的导航栏）
 
 ```js
-import DataManage from './DataManage'
+import TaskManage from './taskManage'
+import UserManage from './userManage'
 
 const Menu = [
 	{
-		title: '数据管理平台',
-		path: '/dataManage',
-		defaultPath: '/dataManage/main',
-		sideMenu: DataManage
-	}
+		title: '任务管理平台',
+		path: '/taskManage',
+		defaultPath: '/taskManage/main',
+		sideMenu: TaskManage
+	},
+	{
+		title: '英雄管理平台',
+		path: '/userManage',
+		defaultPath: '/userManage/userInfo',
+		sideMenu: UserManage
+	},
 ]
 
 export default Menu
@@ -132,42 +102,26 @@ export default Menu
 
 export default [
 	{
-		title: '首页',
-		path: '/dataManage/main',
+		title: '英雄管理',
+		path: '/userManage/userInfo',
 		exact: true,
-		component: 'DataManageMain',
-	},
-	{
-		title: '业务管理',
-		path: '/dataManage/businessManage',
-		exact: true,
-		component: 'BusinessManage',
+		component: 'UserInfoManage',
+		layout: true,
+		role: ['public', 'admin'],
 		children: [
 			{
-				title: '新建业务',
-				path: '/dataManage/businessManage/create',
+				title: '查看英雄信息',
+				path: '/userManage/userInfo/preview',
 				exact: true,
-				component: 'BusinessCreateAndEdit',
-				isHide: 'Y'
-			}
-		]
-	},
-	{
-		title: '数据源管理',
-		path: '/dataManage/dataSource',
-		exact: true,
-		component: 'DataManage',
-		children: [
-			{
-				title: '新增数据源',
-				path: '/dataManage/dataSource/create',
-				exact: true,
-				component: 'DataSourceAddEditLayout',
+				component: 'UserInfoCreateEditPreview',
+				layout: true,
+				role: ['public', 'admin'],
 				isHide: 'Y'
 			}
 		]
 	}
 ]
+
 ```
 
 * 所有地址对应的component需要在pagesConfig中引入；
@@ -175,11 +129,13 @@ export default [
 * src/pageConfig/index.js为所有平台component的集合； 
 
 ```js
-import DataManage from './dataManage'
+
+import UserManage from './userManage'
 
 export default {
-	...DataManage
+	...UserManage
 }
+
 ```
 
 * src/pageConfig/Xxx.js为xxx平台component的引入； 
@@ -187,19 +143,18 @@ export default {
 ```js
 import AsyncComponent from '@/utils/asyncComponent'
 
-const DataManageMain = AsyncComponent(() => import('@/pages/DataManage/Main'))
-const DataManage = AsyncComponent(() => import('@/pages/DataManage/DataSourceManage'))
-const BusinessManage = AsyncComponent(() => import('@/pages/DataManage/BusinessManage'))
+const UserInfoManage = AsyncComponent(() => import('@/pages/UserManage/UserInfoManage'))
+const UserInfoCreateEditPreview= AsyncComponent(() => import('@/pages/UserManage/UserInfoManage/UserInfoCreateEditPreview'))
 
 export default {
-	DataManageMain, // 首页
-	BusinessManage, // 业务管理
-	DataManage, // 数据源管理
+	UserInfoManage, // 英雄信息管理
+	UserInfoCreateEditPreview, // 英雄信息新增、编辑、查看
 }
+
 
 ```
 
-* 菜单配置文件如果存在子集菜单的情况（如：【数据工场开发】展开后，包含了【项目开发管理】、【任务调度管理】两个选项），父级菜单（【数据工场开发】）的path设置为```/平台名称/factory```，子集菜单（【项目开发管理】）的path设置为```/平台名称/factory/dev```
+* 菜单配置文件如果存在子集菜单的情况（如：【任务信息接入】展开后，包含了【任务管理】选项），父级菜单（【任务信息接入】）的path设置为```/平台名称/dataSource```【配置时必须加上isSub: true】，子集菜单（【任务管理】）的path设置为```/平台名称/dataSource/source```
 
 ### 关于Tab栏的注意事项
 
@@ -207,16 +162,14 @@ export default {
 ```js
 import { Tab } from '@/reduxActions'
 
-// 返回业务管理主页
-onBack = async () => {
-	const {
-		pathname,
-		search
-	} = this.props.location
+onConfirm = async () => {
+	const { pathname, search } = this.props.location
 
-	this.props.history.push(businessManageRoute.path)
+	this.props.history.replace('/taskManage/dataSource/source')
+
 	// 注意设置tab的方法需要放在路由跳转的后面
 	await this.props.setDeleteTabPath([`${pathname}${search}`])
+
 	this.props.closeItemTab(`${pathname}${search}`)
 }
 
@@ -277,14 +230,6 @@ componentWillUnmount () {
 * 统一文件名称首字母大写
 * 首行添加yapi地址，目的方便查看请求参数和返回结果
 
-例子：
-```js
-/* api/index.js **/
-
-const HOST ='http://172.16.119.13/kyw/dcy-dev/' 
-const LOGIN_URL = 'http://www.baidu.com'
-
-```
 
 ### 关于接口的请求
 * 在actions文件夹下以功能（菜单）为单位新建文件，与api文件统一；
@@ -328,8 +273,5 @@ getInfo = async () => {
   }
 }
 
-/*
-注：所有的提示都在屏幕上方显示（好处不会被遮蔽，统一提示风格），不加遮罩层，不加关闭按钮，显示时长用默认（3s）无需设置
-**/
 ```
 

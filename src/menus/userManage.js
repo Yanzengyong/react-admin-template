@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 22:56:07
+ * @LastEditTime: 2020-09-23 14:25:06
  */
 export default [
 	{
@@ -27,5 +27,4 @@ export default [
 			}
 		]
 	}
-
 ]

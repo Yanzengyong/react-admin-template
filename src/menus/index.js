@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 15:20:37
+ * @LastEditTime: 2020-09-23 14:24:32
  */
 // import DataManage from './DataManage'
 
@@ -36,7 +36,7 @@ const Menu = [
 		path: '/userManage',
 		defaultPath: '/userManage/userInfo',
 		sideMenu: UserManage
-	},
+	}
 ]
 
 export default Menu
