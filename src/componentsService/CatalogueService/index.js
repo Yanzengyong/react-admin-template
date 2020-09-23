@@ -80,7 +80,7 @@ class CatalogueService extends React.Component {
 					treeData: this.processNode(response.result.children),
 				})
 			} else {
-				Message.error(response.msg || '列表获取失败')
+				// Message.error(response.msg || '列表获取失败')
 			}
 		}
 	}

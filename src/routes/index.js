@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 23:20:00
+ * @LastEditTime: 2020-09-23 16:46:19
  */
 /**
  * 定义应用路
@@ -22,7 +22,7 @@ import NotFound from '@/pages/NotFound'
 import MenuConfig from '@/menus'
 import AllPages from '@/pagesConfig'
 import { getUserInfo } from 'utils/authentication'
-
+import Login from '@/pages/Login'
 
 // 处理菜单列表，实例化路由标签
 const instantiationRouteDiv = (MenuConfig) => {
@@ -105,31 +105,50 @@ const DecoratorRouteLayout = (OriginalRouteList, LayoutRouteList) => {
 class Routes extends React.Component {
 
 	render () {
-		// console.log(this.props)
+		const UserInfo = getUserInfo()
+
 		const { location, OriginalRouteList, LayoutRouteList } = this.props
+
 		const pathname = location.pathname
 		// 路由是否包含layout
 		const isOriginal = OriginalRouteList.findIndex((item) => item.path === pathname) !== -1 ? true : false
 
-		return isOriginal ? (
-			<Switch>
-				{OriginalRouteList.map((item) => {
-					return <AuthRouteComponentHandle key={item.path} {...item} />
-				})}
-			</Switch>
-		) : (
-			<Layout>
+		const NoLogin = () => {
+			return (
 				<Switch>
-					{ // 该情况适用于菜单非后端获取，菜单由前端配置，菜单中可以配置role属性，通过登录获取到的用户信息来判断某路由是否可以被渲染
-						LayoutRouteList.map((item) => {
-							return <AuthRouteComponentHandle key={item.path} {...item} />
-						})
-					}
-					<Redirect from='/' exact to="/taskManage/main" />
-					<Route component={NotFound}/>
+					<Route
+						path='/login'
+						exact={true}
+						component={Login}
+					/>
+					<Redirect from='/' to="/login" />
 				</Switch>
-			</Layout>
-		)
+			)
+		}
+
+		const LandingRouter = () => {
+			return isOriginal ? (
+				<Switch>
+					{OriginalRouteList.map((item) => {
+						return <AuthRouteComponentHandle key={item.path} {...item} />
+					})}
+				</Switch>
+			) : (
+				<Layout>
+					<Switch>
+						{ // 该情况适用于菜单非后端获取，菜单由前端配置，菜单中可以配置role属性，通过登录获取到的用户信息来判断某路由是否可以被渲染
+							LayoutRouteList.map((item) => {
+								return <AuthRouteComponentHandle key={item.path} {...item} />
+							})
+						}
+						<Redirect from='/' exact to="/taskManage/main" />
+						<Route component={NotFound}/>
+					</Switch>
+				</Layout>
+			)
+		}
+		// 判断是否登陆来进行看渲染哪一个路由
+		return Object.keys(UserInfo).length > 0 ? <LandingRouter /> : <NoLogin />
 	}
 }
 

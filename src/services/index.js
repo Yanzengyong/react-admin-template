@@ -1,8 +1,15 @@
+/*
+ * @Description:
+ * @Version:
+ * @Author: Yanzengyong
+ * @Date: 2020-09-18 17:14:07
+ * @LastEditors: Yanzengyong
+ * @LastEditTime: 2020-09-23 15:30:07
+ */
 import axios from 'axios'
 // import qs from 'qs';
 import config from './config'
 
-// import { TOKEN, LOGIN_URL } from '@/api'
 
 const service = axios.create(config)
 
@@ -22,11 +29,7 @@ service.interceptors.response.use(
 	res => {
 		// 这里可根据实际情况做一些操作
 		if (res.status === 200) {
-			if (res.data!=null&&res.data.code === 23001) {
-				// 跳转到登录页面
-				window.localStorage.clear()
-				return
-			} return res.data
+			return res.data
 		} else {
 			return res.data
 		}

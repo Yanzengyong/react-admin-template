@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-08-19 17:00:59
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 15:03:36
+ * @LastEditTime: 2020-09-23 16:56:36
  */
 import MenuConfig from '@/menus'
 
@@ -12,7 +12,7 @@ const DefaultMenu = 	{
 	title: '首页',
 	path: '/taskManage/main',
 	exact: true,
-	component: 'DataManageMain',
+	component: 'TaskDataMain',
 	role: ['public', 'admin'],
 	layout: true
 }

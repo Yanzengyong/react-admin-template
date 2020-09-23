@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 14:25:06
+ * @LastEditTime: 2020-09-23 17:46:01
  */
 export default [
 	{
@@ -13,7 +13,7 @@ export default [
 		exact: true,
 		component: 'UserInfoManage',
 		layout: true,
-		role: ['public', 'admin'],
+		role: ['admin'],
 		children: [
 			{
 				title: '查看英雄信息',
@@ -21,7 +21,7 @@ export default [
 				exact: true,
 				component: 'UserInfoCreateEditPreview',
 				layout: true,
-				role: ['public', 'admin'],
+				role: ['admin'],
 				isHide: 'Y',
 				type: 'preview',
 			}

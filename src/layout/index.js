@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-06-21 10:03:54
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 23:21:44
+ * @LastEditTime: 2020-09-23 17:58:36
  */
 import React from 'react'
 import { Nav } from '@alifd/next'
@@ -34,7 +34,7 @@ class Layout extends React.Component {
 		MainNavselectedKeys: [],
 		sideNavSelectedKeys: [], // 左侧菜单栏选中的selectkeys
 		sideNavOpenKeys: [], // 左侧菜单栏打开的openkeys
-		activeKey: '',
+		activeKey: ''
 	}
 	componentDidMount () {
 		const route = this.props.location
@@ -477,7 +477,7 @@ class Layout extends React.Component {
 			activeKey,
 			showContextMenu,
 			y,
-			x,
+			x
 		} = this.state
 		const {
 			tabs
@@ -491,7 +491,7 @@ class Layout extends React.Component {
 							<img
 								src="assets/images/logo.png"
 								className="avatar"
-								alt="用户头像"
+								alt="logo"
 							/>
 						</div>
 						<Nav
@@ -523,6 +523,14 @@ class Layout extends React.Component {
 								Object.keys(getUserInfo()).length > 0 ?
 								getUserInfo().name : '-'
 							}
+						</div>
+						<div onClick={async () => {
+							window.localStorage.clear()
+							window.sessionStorage.clear()
+							await this.props.setTabs([])
+							this.props.history.push('/login')
+						}} className='signout'>
+							退出
 						</div>
 					</div>
 				</div>

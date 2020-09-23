@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-18 17:14:07
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 15:01:15
+ * @LastEditTime: 2020-09-23 17:18:51
  */
 import { formatUrl } from '@/api/CatalogueApi'
 import request from '@/services'
@@ -23,7 +23,7 @@ export default {
 			if (error && error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
 				Message.error('请求超时，请检查网络')
 			} else {
-				Message.error('服务器未知异常，请联系管理员')
+				// Message.error('服务器未知异常，请联系管理员')
 			}
 		}
 	},

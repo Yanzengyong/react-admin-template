@@ -4,20 +4,8 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 14:24:32
+ * @LastEditTime: 2020-09-23 15:42:40
  */
-// import DataManage from './DataManage'
-
-
-// const Menu = [
-// 	{
-// 		title: '数据管理平台',
-// 		icon: '',
-// 		path: '/dataManage',
-// 		defaultPath: '/dataManage/main',
-// 		sideMenu: DataManage
-// 	}
-// ]
 
 import TaskManage from './taskManage'
 import UserManage from './userManage'

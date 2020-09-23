@@ -223,6 +223,16 @@ componentWillUnmount () {
 }
 ```
 
+### 关于路由鉴权
+
+> 在此项目中的路由鉴权有两种方式：1.本地配置菜单数组，加入role关键属性，根据登陆时候获取的用户信息来进行路由和菜单的权限管理；2.菜单完全数组完全由接口获取，无需role属性配置，即返回的菜单数据就是该用户能使用的菜单和路由；
+
+* 使用方式2时，src/routes/index.js需替换成src/routes/dynamicRoute.js
+* menus的数组对象中无需role属性
+* 登陆后的默认路由在src/utils/menuForRoute.js中
+
+
+
 ### 关于api地址设置
 * 建立index.js文件，存储设置基础路径（BaseUrl）等通用地址；
 * 在api文件夹下以功能（菜单）为单位新建文件；

@@ -4,15 +4,9 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-15 18:07:31
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 15:10:09
+ * @LastEditTime: 2020-09-23 16:46:42
  */
 export default [
-	{
-		path: '/login',
-		exact: true,
-		component: 'Login',
-		role: ['public', 'admin'],
-	},
 	{
 		title: '首页',
 		path: '/taskManage/main',
