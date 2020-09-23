@@ -6,7 +6,7 @@
 
 ### 预览图
 
-![preview](./public/preview.png)
+![preview](https://raw.githubusercontent.com/Yanzengyong/react-admin-template/master/public/logo.png)
 
 
 ### 预览地址
@@ -156,9 +156,9 @@ export default {
 
 * 菜单配置文件如果存在子集菜单的情况（如：【任务信息接入】展开后，包含了【任务管理】选项），父级菜单（【任务信息接入】）的path设置为```/平台名称/dataSource```【配置时必须加上isSub: true】，子集菜单（【任务管理】）的path设置为```/平台名称/dataSource/source```
 
-### 关于Tab栏的注意事项
+### 关于Tab栏
 
-* tab栏支持手动方法删除tab，应用场景为编辑新增等页面在保存、取消时候返回并删除该tab
+* 【手动关闭Tab】tab栏支持手动方法删除tab，应用场景为编辑新增等页面在保存、取消时候返回并删除该tab
 ```js
 import { Tab } from '@/reduxActions'
 
@@ -176,7 +176,7 @@ onConfirm = async () => {
 // 该方法基于store，所以需要connect并且引入reduxActions
 ```
 
-* tab栏支持存储切换离开时候的特定属性，无需考虑何时清除，清除功能已集成在方法中（会在该tab被关闭时清除）
+* 【数据存储】tab栏支持存储切换离开时候的特定属性，无需考虑何时清除，清除功能已集成在方法中（会在该tab被关闭时清除）
 
 ```js
 import { leaveAndSave, hasStorageAndInit } from 'utils/common'

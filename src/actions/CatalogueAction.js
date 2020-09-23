@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Version:
+ * @Author: Yanzengyong
+ * @Date: 2020-09-18 17:14:07
+ * @LastEditors: Yanzengyong
+ * @LastEditTime: 2020-09-23 15:01:15
+ */
 import { formatUrl } from '@/api/CatalogueApi'
 import request from '@/services'
 import {
@@ -6,7 +14,7 @@ import {
 
 export default {
 
-	// 查询数据源目录列表
+	// 查询目录列表
 	async getTreeRQ (type, params) {
 		try {
 			const result = await request.get(formatUrl(type).getTree, params)
@@ -20,7 +28,7 @@ export default {
 		}
 	},
 
-	// 新增实体类目
+	// 新增目录
 	async addTreeRQ (type, params) {
 		try {
 			const result = await request.post(formatUrl(type).addTree, params)
@@ -34,7 +42,7 @@ export default {
 		}
 	},
 
-	// 修改数据实体类目
+	// 修改目录
 	async updateTreeRQ (type, params) {
 		try {
 			const result = await request.post(formatUrl(type).updateTree, params)
@@ -48,7 +56,7 @@ export default {
 		}
 	},
 
-	// 删除实体目录
+	// 删除目录
 	async deleteTreeRQ (type, params) {
 		try {
 			const result = await request.post(formatUrl(type).deleteTree, params)
