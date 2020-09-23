@@ -4,7 +4,7 @@
  * @Author: Yanzengyong
  * @Date: 2020-09-18 17:14:07
  * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-22 22:45:40
+ * @LastEditTime: 2020-09-23 10:06:36
  */
 import React from 'react'
 import { Button } from '@alifd/next'
@@ -25,6 +25,7 @@ class DataSourceCreateEditPreviewLayout extends React.Component {
 			return
 		}
 	}
+
 
 	onConfirm = async () => {
 		const { pathname, search } = this.props.location
