@@ -6,7 +6,7 @@
 
 ### 预览图
 
-![preview](https://raw.githubusercontent.com/Yanzengyong/react-admin-template/master/public/logo.png)
+![preview](https://raw.githubusercontent.com/Yanzengyong/react-admin-template/master/public/preview.png)
 
 
 ### 预览地址
