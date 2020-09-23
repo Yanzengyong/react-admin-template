@@ -1,4 +1,4 @@
-# react + Fusion design后台管理模版
+# react + Fusion design后台管理模版 / 前端开发规范
 
 **主要功能：菜单和路由配置的结合（菜单配置即路由配置）、Tab页签功能、用户登陆路由鉴权**
 
