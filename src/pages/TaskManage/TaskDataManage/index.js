@@ -5,7 +5,7 @@ import ListContainer from '@/components/ListContainer'
 import IconFont from '@/components/IconFont'
 import Ellipsis from '@/components/Ellipsis'
 import DeleteNotice from '@/components/DeleteNotice'
-
+import { jumpToPage } from '@/utils/common'
 
 class TaskManage extends React.Component {
 	state = {
@@ -146,7 +146,17 @@ class TaskManage extends React.Component {
 						size='medium'
 						onClick={
 							() => {
-								this.props.history.push(`/taskManage/dataSource/source/preview?title=${encodeURI(record.taskName)}&id=${record.id}`)
+								const params = [
+									{ label: 'id', value: record.id },
+									{ label: 'title', value: encodeURI(record.taskName) },
+								]
+								jumpToPage(
+									this.props,
+									'查看任务',
+									params,
+									false,
+									this.state.currentPage
+								)
 							}
 						}
 					>
@@ -157,7 +167,19 @@ class TaskManage extends React.Component {
 						title="编辑"
 						type="primary"
 						size='medium'
-						onClick={() => { this.props.history.push(`/taskManage/dataSource/source/edit?title=${encodeURI(record.taskName)}&id=${record.id}`) }}
+						onClick={() => {
+							const params = [
+								{ label: 'id', value: record.id },
+								{ label: 'title', value: encodeURI(record.taskName) },
+							]
+							jumpToPage(
+								this.props,
+								'编辑任务信息',
+								params,
+								false,
+								this.state.currentPage
+							)
+						}}
 					>
 						<IconFont type='iconedit' size='xs'/>
 					</Button>

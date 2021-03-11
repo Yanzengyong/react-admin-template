@@ -8,16 +8,11 @@
  */
 import React from 'react'
 import { Button } from '@alifd/next'
-import { connect } from 'react-redux'
+import { getQueryItemValue, jumpToPage } from '@/utils/common'
 import { Tab } from '@/reduxActions'
-import { getQueryItemValue } from '@/utils/common'
+import { connect } from 'react-redux'
 
-@connect(
-	(state) => ({
-		state: state.tabs,
-	}),
-	Tab
-)
+@connect((state) => ({ state: state.tabs }), Tab)
 class DataSourceCreateEditPreviewLayout extends React.Component {
 
 	componentWillUnmount () {
@@ -26,20 +21,12 @@ class DataSourceCreateEditPreviewLayout extends React.Component {
 		}
 	}
 
-
 	onConfirm = async () => {
-		const { pathname, search } = this.props.location
-
-		this.props.history.replace('/taskManage/dataSource/source')
-
-		// 注意设置tab的方法需要放在路由跳转的后面
-		await this.props.setDeleteTabPath([`${pathname}${search}`])
-
-		this.props.closeItemTab(`${pathname}${search}`)
+		jumpToPage(this.props, '任务管理', null, true)
 	}
 
 	onBack = () => {
-		this.props.history.replace('/taskManage/dataSource/source')
+		jumpToPage(this.props, '任务管理', null, false)
 	}
 
 	render () {

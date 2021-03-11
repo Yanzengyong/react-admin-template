@@ -149,7 +149,6 @@ const deleteListItemAction = (thisEvent, deleteAction, paramLabel, paramValue, c
 					else {
 						if (response.result && response.result.length > 0) {
 							response.result.map(item => {
-								console.log(item)
 								deleteFailList.push(item.uuid)
 								let content = ''
 								if (item.name && item.msg) {

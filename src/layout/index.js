@@ -203,14 +203,12 @@ class Layout extends React.Component {
 			(item) => item !== null && item !== undefined
 		)
 		let obj = {}
-
 		return deleteInvalid.reduce((curs, next) => {
 			if (!next.search) {
 				obj[next.path] ? '' : obj[next.path] = true && curs.push(next)
 			} else {
 				obj[next.path] ? curs.findIndex((item) => `${item.path}${item.search}` === `${next.path}${next.search}`) !== -1 ? '' : obj[next.path] = true && curs.push(next) : obj[next.path] = true && curs.push(next)
 			}
-
 			return curs
 		}, [])
 	}

@@ -5,7 +5,7 @@ import ListContainer from '@/components/ListContainer'
 import IconFont from '@/components/IconFont'
 import Ellipsis from '@/components/Ellipsis'
 import DeleteNotice from '@/components/DeleteNotice'
-
+import { jumpToPage } from '@/utils/common'
 
 class UserInfoManage extends React.Component {
 	state = {
@@ -122,11 +122,19 @@ class UserInfoManage extends React.Component {
 						title="查看详情"
 						type="primary"
 						size='medium'
-						onClick={
-							() => {
-								this.props.history.push(`/userManage/userInfo/preview?title=${encodeURI(record.name)}&id=${record.id}`)
-							}
-						}
+						onClick={() => {
+							const params = [
+								{ label: 'id', value: record.id },
+								{ label: 'title', value: encodeURI(record.name) },
+							]
+							jumpToPage(
+								this.props,
+								'查看英雄信息',
+								params,
+								false,
+								this.state.currentPage
+							)
+						}}
 					>
 						<IconFont type='iconperview' size='xs'/>
 					</Button>

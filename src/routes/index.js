@@ -112,7 +112,6 @@ const RenderPureRoute = (routeList, props) => {
 
 const LayoutRouteComponent = (routeList, props) => {
 	const Layout = AllPages[routeList[0].layout]
-	console.log('我是layout渲染rooute======', props.location.pathname, Layout)
 	return (
 		<Layout {...props}>
 			<TransitionGroup style={{ width: '100%', height: '100%' }}>
