@@ -1,49 +1,45 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: Yanzengyong
- * @Date: 2020-09-15 18:07:31
- * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 16:46:19
- */
-/**
- * 定义应用路
- */
 import React from 'react'
 import {
 	Route,
 	Redirect,
 	Switch,
-	withRouter,
-	HashRouter as Router
+	HashRouter as Router,
+	withRouter
 } from 'react-router-dom'
-import Layout from '@/layout'
 import NotFound from '@/pages/NotFound'
+import Login from '@/pages/Login'
 import MenuConfig from '@/menus'
 import AllPages from '@/pagesConfig'
-import { getUserInfo } from 'utils/authentication'
-import Login from '@/pages/Login'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { instantiationRouteDiv, DefaultMenu } from 'utils/menuForRoute'
+import { getLocalStorageItem } from '@/utils/storage'
+import './trastion.scss'
 
-// 处理菜单列表，实例化路由标签
-const instantiationRouteDiv = (MenuConfig) => {
-	let routerList = []
-	MenuConfig.forEach((item) => {
-		const loopMenu = (menus) => {
-			menus.forEach((menu) => {
-				if (menu.children && menu.children.length > 0) {
-					loopMenu(menu.children)
-					menu.isSub && !menu.component ? routerList = [...routerList] : routerList = [menu, ...routerList]
-				} else {
-					routerList = [
-						menu,
-						...routerList
-					]
-				}
-			})
-		}
-		loopMenu(item.sideMenu)
-	})
-	return routerList
+
+// 所有路由对象列表
+const routeList = instantiationRouteDiv(MenuConfig)
+// 包含layout的对象列表
+const hasLayoutRoute = routeList.filter((item) => item.layout)
+// 不包含layout的对象列表
+const pureRoute = routeList.filter((item) => !item.layout)
+// layout名称列表
+const layoutNameList = hasLayoutRoute.map((item) => item.layout)
+// layout种类列表
+const typeOfLayout = []
+// 此时我需要找到有几种类型的layout
+layoutNameList.forEach((item) => {
+	if (!typeOfLayout.includes(item)) {
+		typeOfLayout.push(item)
+	}
+})
+// 已经被分类好的layout列表，格式为[[ ...A_Layout列表 ], [ ...B_Layout列表 ]]
+const layoutListOfType = typeOfLayout.map((item) => {
+	return hasLayoutRoute.filter((ite) => ite.layout === item)
+})
+const ANIMATION_MAP = {
+  PUSH: 'forward',
+  POP: 'back',
+	REPLACE: 'forward'
 }
 
 // 配置路由鉴权
@@ -53,104 +49,120 @@ const AuthRouteComponentHandle = (props) => {
 		path,
 		exact,
 		component,
-		title,
-		...restProps
+		title
 	} = props
-	console.log(restProps)
-	const UserInfo = getUserInfo()
 
-	if (UserInfo && UserInfo.role && role.indexOf(UserInfo.role) !== -1) {
-		return (
-			<Route
-				path={path}
-				exact={exact}
-				render={(props) => {
-					const ItemComponent = AllPages[component]
+	const UserInfo = getLocalStorageItem('UserInfo') ?? {}
+	const TOKEN = getLocalStorageItem('TOKEN')
 
-					return (
-						<ItemComponent
-							{...props}
-							title={title}
-						/>
-					)
-
-				}}
-			/>
-		)
-	} else {
-		return (
-			<Route component={((extra) => (props) => <NotFound {...props} {...extra} />)({ Auth: 'no' })} />
-		)
-	}
-}
-
-const routeList = instantiationRouteDiv(MenuConfig)
-// layout路由列表
-const LayoutRouteList = routeList.filter((item) => item.layout)
-// 无layout路由列表
-const OriginalRouteList = routeList.filter((item) => {
-	const hasLayout = item.layout ?? false
-	return hasLayout === false
-})
-// 路由渲染装饰器
-const DecoratorRouteLayout = (OriginalRouteList, LayoutRouteList) => {
-	return (Comp) => {
-		return (props) => {
-			return <Comp {...props} OriginalRouteList={OriginalRouteList} LayoutRouteList={LayoutRouteList}/>
-		}
-	}
-}
-@DecoratorRouteLayout(OriginalRouteList, LayoutRouteList)
-@withRouter
-class Routes extends React.Component {
-
-	render () {
-		const UserInfo = getUserInfo()
-
-		const { location, OriginalRouteList, LayoutRouteList } = this.props
-
-		const pathname = location.pathname
-		// 路由是否包含layout
-		const isOriginal = OriginalRouteList.findIndex((item) => item.path === pathname) !== -1 ? true : false
-
-		const NoLogin = () => {
-			return (
-				<Switch>
+	if (TOKEN) {
+	// 存在用户信息、存在用户权限数组，并且该路由的权限至少属于这个用户权限数组的中某一个
+		if (UserInfo &&
+			UserInfo.role &&
+			role.some((item) => item === UserInfo.role)) {
+				// 此时该路由可以被加载到目标组件（因为他有访问该页面的权限）
+				return (
 					<Route
-						path='/login'
-						exact={true}
-						component={Login}
+						path={path}
+						exact={exact}
+						render={(props) => {
+							const ItemComponent = AllPages[component]
+							return (
+								<div style={{ width: '100%', height: '100%' }}>
+									<ItemComponent
+										{...props}
+										title={title}
+									/>
+								</div>
+							)
+						}}
 					/>
-					<Redirect from='/' to="/login" />
-				</Switch>
-			)
+				)
 		}
+		return (
+			<Route component={((extra) => (props) => <NotFound {...props} {...extra} />)({ Auth: 'no' })}/>
+		)
+	}
+	return <Redirect to='/login' />
+}
 
-		const LandingRouter = () => {
-			return isOriginal ? (
-				<Switch>
-					{OriginalRouteList.map((item) => {
-						return <AuthRouteComponentHandle key={item.path} {...item} />
-					})}
-				</Switch>
-			) : (
-				<Layout>
+// 渲染无layout的路由列表
+const RenderPureRoute = (routeList, props) => {
+	return (
+		<Route path='/pure'>
+			<TransitionGroup style={{ width: '100%', height: '100%' }}>
+				<CSSTransition
+					key={props.location.pathname}
+					timeout={500}
+					classNames='forward'
+				>
 					<Switch>
-						{ // 该情况适用于菜单非后端获取，菜单由前端配置，菜单中可以配置role属性，通过登录获取到的用户信息来判断某路由是否可以被渲染
-							LayoutRouteList.map((item) => {
+						{
+							routeList.map((item) => {
 								return <AuthRouteComponentHandle key={item.path} {...item} />
 							})
 						}
-						<Redirect from='/' exact to="/taskManage/main" />
 						<Route component={NotFound}/>
 					</Switch>
-				</Layout>
-			)
-		}
-		// 判断是否登陆来进行看渲染哪一个路由
-		return Object.keys(UserInfo).length > 0 ? <LandingRouter /> : <NoLogin />
+				</CSSTransition>
+			</TransitionGroup>
+		</Route>
+	)
+}
+
+const LayoutRouteComponent = (routeList, props) => {
+	const Layout = AllPages[routeList[0].layout]
+	console.log('我是layout渲染rooute======', props.location.pathname, Layout)
+	return (
+		<Layout {...props}>
+			<TransitionGroup style={{ width: '100%', height: '100%' }}>
+				<CSSTransition
+					key={props.location.pathname}
+					timeout={500}
+					classNames='forward'
+				>
+					<Switch>
+						{
+							routeList.map((item) => {
+								return <AuthRouteComponentHandle key={item.path} {...item} />
+							})
+						}
+						<Route component={NotFound}/>
+					</Switch>
+				</CSSTransition>
+			</TransitionGroup>
+		</Layout>
+	)
+}
+
+@withRouter
+class Routes extends React.Component {
+	render () {
+		return (
+			<Switch>
+				<Route path='/login' component={Login}/>
+				{
+					// 渲染无layout的route
+					RenderPureRoute(pureRoute, this.props)
+				}
+				{
+					// 渲染有layout的route
+					layoutListOfType.map((item) => {
+						const path = `/${item[0].layout}`
+						return (
+							<Route path={path} key={path}>
+								{LayoutRouteComponent(item, this.props) }
+							</Route>
+						)
+					})
+				}
+				<Redirect from='/' exact to={DefaultMenu.path} />
+				<Route component={NotFound}/>
+			</Switch>
+		)
 	}
 }
+
 
 const routes = () => {
 	return (

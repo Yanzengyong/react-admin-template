@@ -8,9 +8,11 @@
  */
 import { combineReducers } from 'redux'
 import tabs from './tabs'
+import user from './user'
 
 const rootReducer = combineReducers({
-	tabs
+	tabs,
+	user
 })
 
 export default rootReducer

@@ -1,31 +1,23 @@
-/*
- * @Description:
- * @Version:
- * @Author: Yanzengyong
- * @Date: 2020-06-21 10:03:54
- * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 17:58:36
- */
 import React from 'react'
 import { Nav } from '@alifd/next'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Tab } from '@alifd/next'
 import MenuConfig from '@/menus'
 import IconFont from '@/components/IconFont'
-import { DefaultMenu, expendSideMenusHandle, instantiationRouteDiv } from '@/utils/menuForRoute'
+import { DefaultMenu, expendSideMenusHandle, findCurrentRouteItem } from '@/utils/menuForRoute'
+import { getLocalStorageItem } from '@/utils/storage'
 import { getQueryItemValue } from '@/utils/common'
 import { connect } from 'react-redux'
-import { Tab as TabAction } from '@/reduxActions'
-import { getUserInfo } from '@/utils/authentication'
+import { Tab as TabAction, User as UserRedux } from '@/reduxActions'
 import './index.scss'
 const { Item, SubNav } = Nav
 
 @connect((state) => (
 	{
-		state: state.tabs
+		state: state.tabs,
+		user: state.user
 	}
-), TabAction)
-@withRouter
+), { ...TabAction, ...UserRedux })
 class Layout extends React.Component {
 	state = {
 		showContextMenu: false,
@@ -75,6 +67,7 @@ class Layout extends React.Component {
 		})
 	}
 
+
 	// 根据路由来渲染对应的tab页面
 	renderRouteTab = (route) => {
 
@@ -83,18 +76,20 @@ class Layout extends React.Component {
 			path: route.pathname,
 			component: 'NotFound',
 		}
+
 		// 菜单路由对象
 		const currentTab =
-			route.pathname === '/'
-				? DefaultMenu
-				: this.findCurrentRouteItem(route.pathname) ?? NotFound
+		route.pathname === '/'
+			? DefaultMenu
+			: findCurrentRouteItem(MenuConfig, route.pathname) ?? NotFound
+
 		const { tabs } = this.props.state
 
 		const NoNotFoundTab = tabs.filter(
 			(item) => item.title !== 'NotFound'
 		)
 
-		const _title = route.search !== '' ? `${currentTab.title}(${getQueryItemValue(route.search, 'title')})` : currentTab.title
+		const _title = route.search !== '' && !getQueryItemValue(route.search, 'token') ? `${currentTab.title}(${getQueryItemValue(route.search, 'title')})` : currentTab.title
 
 		let avtiveRoutePath
 
@@ -123,18 +118,6 @@ class Layout extends React.Component {
 		})
 	}
 
-	// 获取当前的菜单对象
-	findCurrentRouteItem = (path, title) => {
-		const routeList = instantiationRouteDiv(MenuConfig)
-		const currentPath = path
-		const currentTitle = title
-
-		return routeList.find(
-			(item) => item.path === currentPath || item.title === currentTitle
-		)
-	}
-
-
 	// 获取需要展开的nav菜单
 	getSubMenuOpenKeys = (PathInfo) => {
 		let sideNavOpenKeys = ''
@@ -154,13 +137,13 @@ class Layout extends React.Component {
 
 	// 初始化菜单
 	initMenu = (path) => {
-		const UrlPath = path === '/' ? DefaultMenu.path : path
-
+		const UrlPath = path
 
 		const currentMain = MenuConfig.find((item) => {
 			return UrlPath.indexOf(item.path) !== -1
 		})
 
+		// 类别主题菜单选中值
 		const currentMainSelectKeys = currentMain ? currentMain.path : ''
 
 		const currentLayoutSideMenu = currentMain ? currentMain.sideMenu.filter((item) => item.layout) : []
@@ -168,7 +151,7 @@ class Layout extends React.Component {
 		const expendSideMenus = expendSideMenusHandle(currentLayoutSideMenu)
 
 		const currentPathInfo =
-			expendSideMenus.find((item) => item.path === UrlPath) ?? {}
+		expendSideMenus.find((item) => item.path === UrlPath) ?? {}
 
 		const sideNavSelectedKeys = currentPathInfo.isHide
 			? currentPathInfo.parent.path
@@ -182,6 +165,7 @@ class Layout extends React.Component {
 			sideNavSelectedKeys: sideNavSelectedKeys,
 			sideNavOpenKeys: sideNavOpenKeys,
 		})
+
 	}
 
 	// 头部菜单的选中
@@ -250,14 +234,14 @@ class Layout extends React.Component {
 	// 渲染侧边菜单的函数
 	renderNavHandle = (menu) =>
 		menu.map((menuItem) => {
-			const UserInfo = getUserInfo()
+			const UserInfo = getLocalStorageItem('UserInfo') ?? {}
 
 			// 复用逻辑
 			const renderItem = (data) => {
 
 				if (
 					data.path.indexOf('http') !== -1 ||
-					data.path.indexOf('http') !== -1
+					data.path.indexOf('https') !== -1
 				) {
 					return (
 						<Item key={data.path} data={data}>
@@ -483,6 +467,8 @@ class Layout extends React.Component {
 			tabs
 		} = this.props.state
 
+		const UserInfo = getLocalStorageItem('UserInfo') ?? {}
+
 		return (
 			<div className="layout_container" onClick={this.clickOtherCloseDom}>
 				<div className="layout_header">
@@ -512,16 +498,16 @@ class Layout extends React.Component {
 					<div className="layout_user_box">
 						<img
 							src={
-								Object.keys(getUserInfo()).length > 0 ?
-								getUserInfo().avatar : '-'
+								Object.keys(UserInfo).length > 0 ?
+								UserInfo.avatar : '-'
 							}
 							className="avatar"
 							alt="用户头像"
 						/>
 						<div className="user_info">
 							{
-								Object.keys(getUserInfo()).length > 0 ?
-								getUserInfo().name : '-'
+								Object.keys(UserInfo).length > 0 ?
+								UserInfo.name : '-'
 							}
 						</div>
 						<div onClick={async () => {
@@ -572,7 +558,9 @@ class Layout extends React.Component {
 								/>
 							))}
 						</Tab>
-						<div className="layout_content_body">{this.props.children}</div>
+						<div className="layout_content_body">
+							{this.props.children}
+						</div>
 						<div className="layout_footer_copyright">
 							<div className="copyleft">left Text</div>
 							<div className="copyright">

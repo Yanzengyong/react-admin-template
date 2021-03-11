@@ -12,7 +12,6 @@ export default [
 		path: '/userManage/userInfo',
 		exact: true,
 		component: 'UserInfoManage',
-		layout: true,
 		role: ['admin'],
 		children: [
 			{
@@ -20,7 +19,6 @@ export default [
 				path: '/userManage/userInfo/preview',
 				exact: true,
 				component: 'UserInfoCreateEditPreview',
-				layout: true,
 				role: ['admin'],
 				isHide: 'Y',
 				type: 'preview',

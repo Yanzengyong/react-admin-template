@@ -7,7 +7,9 @@
  * @LastEditTime: 2020-08-30 22:50:21
  */
 import Tab from './tab'
+import User from './user'
 
 export {
-	Tab
+	Tab,
+	User
 }

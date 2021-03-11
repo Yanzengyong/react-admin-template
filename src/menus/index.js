@@ -1,12 +1,4 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: Yanzengyong
- * @Date: 2020-09-15 18:07:31
- * @LastEditors: Yanzengyong
- * @LastEditTime: 2020-09-23 15:42:40
- */
-
+import { enhancerMenu } from '@/utils/menuForRoute.js'
 import TaskManage from './taskManage'
 import UserManage from './userManage'
 
@@ -16,15 +8,21 @@ const Menu = [
 		icon: '',
 		path: '/taskManage',
 		defaultPath: '/taskManage/main',
-		sideMenu: TaskManage
+		sideMenu: TaskManage,
+		layout: 'LayoutCommon'
 	},
 	{
 		title: '英雄管理平台',
 		icon: '',
 		path: '/userManage',
 		defaultPath: '/userManage/userInfo',
-		sideMenu: UserManage
+		sideMenu: UserManage,
+		layout: 'LayoutCommon'
 	}
 ]
 
-export default Menu
+// 给MenuConfig的每一个对象都新增了layout属性和修改了path属性
+const _enhancerMenu = enhancerMenu(Menu)
+
+export default _enhancerMenu
+

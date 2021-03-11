@@ -10,9 +10,11 @@
 import Login from '@/pages/Login'
 import TaskManage from './taskManage'
 import UserManage from './userManage'
+import LayoutCommon from '@/layout'
 
 export default {
 	Login,
+	LayoutCommon,
 	...TaskManage,
 	...UserManage
 }

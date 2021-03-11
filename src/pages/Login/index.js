@@ -8,9 +8,9 @@
  */
 import React from 'react'
 import { Form, Input } from '@alifd/next'
-import { setUserInfo } from '@/utils/authentication'
+import { connect } from 'react-redux'
+import { User as UserRedux } from '@/reduxActions'
 import './index.scss'
-
 
 const FormItem = Form.Item
 
@@ -19,26 +19,35 @@ const formItemLayout = {
 		span: 24
 	}
 }
+@connect((state) => (
+	{
+		user: state.user
+	}
+), UserRedux)
 class LoginPage extends React.Component {
 
 	handleSubmit = (val) => {
-
+		const {
+			setUserInfo
+		} = this.props
 		if (Object.keys(val).length > 0) {
 			if (val.username === 'admin' && val.password === 'admin') {
 				setUserInfo({
 					role: 'admin',
 					avatar: 'assets/images/ironman.png',
-					name: 'Iron Man'
+					name: 'Iron Man',
+					token: '13adu8hhbbbasd08911jdh10hd18b'
 				})
-				this.props.history.replace('/taskManage/main')
+				this.props.history.replace('/')
 			}
 			if (val.username === '123' && val.password === '123') {
 				setUserInfo({
 					role: 'public',
 					avatar: 'assets/images/CaptainAmerica.png',
-					name: 'Captain America'
+					name: 'Captain America',
+					token: '9yhvb813vbdsa9dg71vgoo18h19u1'
 				})
-				this.props.history.replace('/taskManage/main')
+				this.props.history.replace('/')
 			}
 		}
 	}

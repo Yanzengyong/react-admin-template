@@ -6,20 +6,19 @@
  * @LastEditors: Yanzengyong
  * @LastEditTime: 2020-09-23 16:46:42
  */
+
 export default [
 	{
 		title: '首页',
 		path: '/taskManage/main',
 		exact: true,
 		component: 'TaskDataMain',
-		role: ['public', 'admin'],
-		layout: true
+		role: ['public', 'admin']
 	},
 	{
 		title: '任务信息接入',
 		path: '/taskManage/dataSource',
 		isSub: true,
-		layout: true,
 		role: ['public', 'admin'],
 		children: [
 			{
@@ -27,7 +26,6 @@ export default [
 				path: '/taskManage/dataSource/source',
 				exact: true,
 				component: 'TaskDataManage',
-				layout: true,
 				role: ['public', 'admin'],
 				children: [
 					{
@@ -35,7 +33,6 @@ export default [
 						path: '/taskManage/dataSource/source/create',
 						exact: true,
 						component: 'TaskDataCreateEditPreview',
-						layout: true,
 						role: ['public', 'admin'],
 						isHide: 'Y',
 						type: 'create',
@@ -45,7 +42,6 @@ export default [
 						path: '/taskManage/dataSource/source/edit',
 						exact: true,
 						component: 'TaskDataCreateEditPreview',
-						layout: true,
 						role: ['public', 'admin'],
 						isHide: 'Y',
 						type: 'edit',
@@ -55,7 +51,6 @@ export default [
 						path: '/taskManage/dataSource/source/preview',
 						exact: true,
 						component: 'TaskDataCreateEditPreview',
-						layout: true,
 						role: ['public', 'admin'],
 						isHide: 'Y',
 						type: 'preview',

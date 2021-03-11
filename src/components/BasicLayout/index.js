@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 import { Breadcrumb, Button } from '@alifd/next'
 import { withRouter, Link } from 'react-router-dom'
 import MenuConfig from '@/menus'
-import {	DefaultMenu, expendSideMenusHandle, getBreadcrumbData } from 'utils/menuForRoute'
+import { DefaultMenu, expendSideMenusHandle, getBreadcrumbData } from 'utils/menuForRoute'
 import './index.scss'
 
 class BasicLayout extends React.Component {

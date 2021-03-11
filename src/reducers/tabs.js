@@ -6,23 +6,26 @@
  * @LastEditors: Yanzengyong
  * @LastEditTime: 2020-08-31 11:06:04
  */
+import { getSessionStorageItem, setSessionStorageItem } from '@/utils/storage'
 
-const localTabs = JSON.parse(window.sessionStorage.getItem('TABS'))
+const localTabs = getSessionStorageItem('TABS')
+
 // 初始化state数据
 const initialState = {
 	tabs: localTabs ?? [],
 	deleteTabPath: []
 }
+
 export default (state = initialState, action) => {
 
 	const closeItemTabsHandle = (path) => {
 		const stayTabs = state.tabs.filter((item) => `${item.path}${item.search}` !== path)
-		window.sessionStorage.setItem('TABS', JSON.stringify(stayTabs))
+		setSessionStorageItem('TABS', stayTabs)
 		return stayTabs
 	}
 
 	const setCurrentTabs = (tabs) => {
-		window.sessionStorage.setItem('TABS', JSON.stringify(tabs))
+		setSessionStorageItem('TABS', tabs)
 		return tabs
 	}
 
@@ -37,3 +40,4 @@ export default (state = initialState, action) => {
 		return state
 	}
 }
+
