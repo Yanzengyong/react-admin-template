@@ -10,15 +10,13 @@
 const path = require('path')
 const rewirePostcss = require('react-app-rewire-postcss')
 const px2rem = require('postcss-px2rem')
-const { override, addWebpackAlias, useEslintRc, addDecoratorsLegacy } = require('customize-cra')
+const { override, addWebpackAlias, addDecoratorsLegacy } = require('customize-cra')
 
 module.exports = override(
 	//路径别名
 	addWebpackAlias({
 		'@': path.resolve(__dirname, 'src'),
 	}),
-	// 不需要将eslint的报错抛到浏览器上，在控制台即可
-	useEslintRc('./.eslintrc.js'),
 	// 添加装饰器
 	addDecoratorsLegacy(),
 	(config, env) => {

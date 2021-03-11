@@ -5,7 +5,7 @@ import { Tab } from '@alifd/next'
 import MenuConfig from '@/menus'
 import IconFont from '@/components/IconFont'
 import { DefaultMenu, expendSideMenusHandle, findCurrentRouteItem } from '@/utils/menuForRoute'
-import { getLocalStorageItem } from '@/utils/storage'
+import { getLocalStorageItem, clearLocalStorage, removeSessionStorageItem, clearSessionStorage } from '@/utils/storage'
 import { getQueryItemValue } from '@/utils/common'
 import { connect } from 'react-redux'
 import { Tab as TabAction, User as UserRedux } from '@/reduxActions'
@@ -307,7 +307,7 @@ class Layout extends React.Component {
 		const closePath = `${path}${search}`
 
 		// 清除本地存储
-		window.sessionStorage.removeItem(closePath)
+		removeSessionStorageItem(closePath)
 		// 设置被删除的的tab的path数组
 		await this.props.setDeleteTabPath([closePath])
 
@@ -388,7 +388,7 @@ class Layout extends React.Component {
 		await this.props.setDeleteTabPath(closeTabsArr)
 		// 清除本地存储
 		closeTabsArr.forEach((item) => {
-			window.sessionStorage.removeItem(item)
+			removeSessionStorageItem(item)
 		})
 
 		this.setState({
@@ -511,8 +511,8 @@ class Layout extends React.Component {
 							}
 						</div>
 						<div onClick={async () => {
-							window.localStorage.clear()
-							window.sessionStorage.clear()
+							clearLocalStorage()
+							clearSessionStorage()
 							await this.props.setTabs([])
 							this.props.history.push('/login')
 						}} className='signout'>
