@@ -1,7 +1,6 @@
 import React from 'react'
-import { Nav } from '@alifd/next'
 import { Link } from 'react-router-dom'
-import { Tab } from '@alifd/next'
+import { Tab, Nav } from '@alifd/next'
 import MenuConfig from '@/menus'
 import IconFont from '@/components/IconFont'
 import { DefaultMenu, expendSideMenusHandle, findCurrentRouteItem } from '@/utils/menuForRoute'

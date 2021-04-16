@@ -13,7 +13,7 @@
 
 ### 预览地址
 
-[预览地址](http://167.179.81.55/admin)
+[预览地址](http://example.yanzengyong.site/admintemplate)
 
 
 ### 项目启动
